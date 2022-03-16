@@ -1,0 +1,47 @@
+{
+    "name": "Riska Amelia",
+    "age": 18,
+    "gender": "Perempuan",
+    "hobi": [
+        "Coding",
+        "Main Game",
+        "Membaca"
+    ],
+    
+    "github": {
+    "username": "riskaamelia15",
+    "repository": 15
+    },
+
+    "articles": [
+        {
+            "id": 1,
+            "title": "Flutter: Introduction",
+            "subtitle": "Beautiful native apps with Dart Language"
+        },
+
+        {
+            "id": 2,
+            "title": "Flutter: LinearLayout",
+            "subtitle": "How to design LinearLayout in Flutter"
+        },
+
+        {
+            "id": 3,
+            "title": "Flutter: RelativeLayout",
+            "subtitle": "How to design RelativeLayout in Flutter"
+        }
+    ],
+
+    "contact": {
+        "1": {
+            "name": "Personal",
+            "phone": "083190121039"
+        },
+
+        "2": {
+            "name": "Work",
+            "phone": "083190121039"
+        }
+    }
+}
