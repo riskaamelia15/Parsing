@@ -14,7 +14,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late String _name = "";
   late String _age = "";
-  late List _hobi = "" as List;
+  List _hobi = [];
   late String _articles = "";
   late String _github = "";
   late String _contact = "";
@@ -31,6 +31,11 @@ class _ProfilePageState extends State<ProfilePage> {
       _github = sample.github!.username.toString();
       _contact = sample.contact!.toString();
     });
+  }
+
+  void initstate() {
+    _loadSampleJson();
+    super.initState();
   }
 
   @override
@@ -106,26 +111,30 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-
-                // JSON hobi
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 50,
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.purpleAccent,
-                    ),
-                    child: Text(
-                      _hobi,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  // JSON hobi
+                  ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: _hobi.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Container(
+                            height: 50,
+                            width: 100,
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.purpleAccent,
+                            ),
+                            child: Text(
+                              _hobi[index],
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        );
+                      }),
+                ]),
 
                 // JSON github
                 Padding(
