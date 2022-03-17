@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-import 'package:wedding/sample_json.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:parsing/sample_json.dart';
+import 'package:parsing/profile.dart';
+import 'package:parsing/template.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +16,12 @@ class MyApp extends StatelessWidget {
   //This widget is the root of your application
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: const ProfileTemplate(),
     );
   }
 }
@@ -42,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Read Json'),
+        title: const Text('Latihan JSON'),
       ),
       body: SafeArea(
         child: Padding(
@@ -62,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Container(
                       height: 50,
                       width: 150,
-                      color: Colors.grey,
+                      color: Colors.deepPurple,
                       alignment: Alignment.center,
                       child: const Text("Read JSON File"),
                     ),

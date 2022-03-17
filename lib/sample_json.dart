@@ -1,6 +1,5 @@
 class Sample {
   String? name;
-  String? gender;
   int? age;
   List<String>? hobi;
   Github? github;
@@ -10,7 +9,6 @@ class Sample {
   Sample({
     required this.name,
     required this.age,
-    required this.gender,
     required this.hobi,
     required this.github,
     required this.articles,
@@ -19,7 +17,7 @@ class Sample {
 
   @override
   String toString() {
-    return 'Sample{name: $name, age: $age, gender: $gender, hobi: $hobi, github: $github, articles: $articles, contact: $contact}';
+    return 'Sample{name: $name, age: $age, hobi: $hobi, github: $github, articles: $articles, contact: $contact}';
   }
 
   factory Sample.fromJson(Map<String, dynamic> json) {
@@ -45,7 +43,6 @@ class Sample {
     return Sample(
       name: json["name"],
       age: json["age"],
-      gender: json["gender"],
       hobi: List<String>.from(json["hobi"]),
       github: Github.fromJson(json["github"]),
       articles: articles,
