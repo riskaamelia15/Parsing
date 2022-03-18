@@ -212,9 +212,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         child: Center(
                             child: Text(
-                          _articles[index].id.toString() +
+                          _articles[index].title +
                               "\n" +
-                              _articles[index].title +
                               _articles[index].subtitle,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 30.0),
