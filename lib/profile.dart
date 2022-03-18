@@ -173,6 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Center(
                             child: Text(
                           _hobi[index].toString(),
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 30.0),
                         )),
@@ -215,8 +216,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           _articles[index].title +
                               "\n" +
                               _articles[index].subtitle,
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 30.0),
+                              color: Colors.white, fontSize: 20.0),
                         )),
                       ),
                     ),
