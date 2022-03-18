@@ -1,8 +1,7 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:parsing/sample_json.dart';
+import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -14,26 +13,28 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late String _name = "";
   late String _age = "";
+  late String _usergithub = "";
+  late String _repogithub = "";
   List _hobi = [];
-  late String _articles = "";
-  late String _github = "";
-  late String _contact = "";
+  List<Article> _articles = [];
 
   Future _loadSampleJson() async {
     String jsonString = await rootBundle.loadString("assets/sample.json");
     final jsonData = json.decode(jsonString);
     Sample sample = Sample.fromJson(jsonData);
+
     setState(() {
       _name = sample.name.toString();
       _age = sample.age.toString();
+      _usergithub = sample.github!.username.toString();
+      _repogithub = sample.github!.repository.toString();
       _hobi = sample.hobi!.toList();
-      _articles = sample.articles!.toString();
-      _github = sample.github!.username.toString();
-      _contact = sample.contact!.toString();
+      _articles = sample.articles!.toList();
     });
   }
 
-  void initstate() {
+  @override
+  void initState() {
     _loadSampleJson();
     super.initState();
   }
@@ -42,160 +43,187 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Read Json'),
+        title: const Center(
+          child: Text('Parsing Json'),
+        ),
+        backgroundColor: Colors.deepPurple,
       ),
-      body: SafeArea(
+      body: Container(
+        margin: const EdgeInsets.all(20),
         child: ListView(
-          padding: const EdgeInsets.all(16.0),
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        _loadSampleJson();
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 150,
-                        color: Colors.deepPurple,
-                        alignment: Alignment.center,
-                        child: const Text("Read JSON File",
-                            style: TextStyle(color: Colors.white)),
-                      ),
+            // Name
+            Card(
+              margin: const EdgeInsets.all(20),
+              color: Colors.lightBlueAccent,
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.black, Colors.purpleAccent],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 1), // changes position of shadow
                     ),
                   ],
                 ),
-
-                // JSON name
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 50,
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.purpleAccent,
-                    ),
-                    child: Text(
-                      _name,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(40),
+                  child: Center(
+                      child: Text(
+                    "Nama : \n" + _name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white, fontSize: 30.0),
+                  )),
                 ),
+              ),
+            ),
 
-                // JSON age
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 50,
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.purpleAccent,
-                    ),
-                    child: Text(
-                      _age,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+            // Age
+            Card(
+              margin: const EdgeInsets.all(20),
+              color: Colors.lightBlueAccent,
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Colors.black, Colors.purpleAccent]),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 1), // changes position of shadow
+                    )
+                  ],
                 ),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  // JSON hobi
-                  ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: _hobi.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: Container(
-                            height: 50,
-                            width: 100,
-                            margin: const EdgeInsets.all(10),
-                            padding: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.purpleAccent,
-                            ),
+                child: Padding(
+                  padding: const EdgeInsets.all(40),
+                  child: Center(
+                      child: Text(
+                    "Umur : \n" + _age + " Tahun",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white, fontSize: 30.0),
+                  )),
+                ),
+              ),
+            ),
+
+            // Github
+            Card(
+              margin: const EdgeInsets.all(20),
+              color: Colors.lightBlueAccent,
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Colors.black, Colors.purpleAccent]),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 1), // changes position of shadow
+                    )
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(40),
+                  child: Center(
+                      child: Text(
+                    "Github : " +
+                        _usergithub +
+                        "\n Repository : " +
+                        _repogithub,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white, fontSize: 30.0),
+                  )),
+                ),
+              ),
+            ),
+
+            // Hobi
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+              height: MediaQuery.of(context).size.height * 0.30,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _hobi.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Card(
+                      color: Colors.lightBlueAccent,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Colors.black, Colors.purpleAccent]),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset:
+                                  Offset(0, 1), // changes position of shadow
+                            )
+                          ],
+                        ),
+                        child: Center(
                             child: Text(
-                              _hobi[index],
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        );
-                      }),
-                ]),
+                          _hobi[index].toString(),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 30.0),
+                        )),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
 
-                // JSON github
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 50,
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.purpleAccent,
+            // Articles
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+              height: MediaQuery.of(context).size.height * 0.30,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _hobi.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Card(
+                      color: Colors.lightBlueAccent,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Colors.black, Colors.purpleAccent]),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset:
+                                  Offset(0, 1), // changes position of shadow
+                            )
+                          ],
+                        ),
+                        child: Center(
+                            child: Text(
+                          _articles[index].id.toString() +
+                              "\n" +
+                              _articles[index].title +
+                              _articles[index].subtitle,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 30.0),
+                        )),
+                      ),
                     ),
-                    child: Text(
-                      _github,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-
-                // JSON contact
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.purpleAccent,
-                    ),
-                    child: Text(
-                      _contact,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-
-                // JSON articles
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 150,
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.purpleAccent,
-                    ),
-                    child: Text(
-                      _articles,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
           ],
         ),
